@@ -1,0 +1,48 @@
+.CardMovie {
+	color: white;
+	background-color: rgb(27, 30, 34);
+	border: 2px solid rgb(85, 84, 84);
+	margin: 0.5rem 2rem;
+	padding: 1rem;
+	width: 22rem;
+	height: 30rem;
+	overflow-y: hidden;
+	border-radius: 10px;
+}
+
+.CardMovie:hover {
+	cursor: pointer;
+	border: 2px solid salmon;
+}
+
+.CardMovie #ImgOverview {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	max-height: 17.5rem;
+	overflow-y: hidden;
+}
+
+.CardMovie #ImgOverview p {
+	padding: 0 1rem;
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: rgb(34, 26, 26);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: rgb(56, 248, 200);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
