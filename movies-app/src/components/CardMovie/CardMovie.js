@@ -1,7 +1,9 @@
 import "./CardMovie.css";
+import React, { useState } from "react";
 
 function CardMovie(props) {
-	console.log("movie img: " + props.img);
+	const [showOverview, setShowOverview] = useState(false);
+
 	const IMG = "https://image.tmdb.org/t/p/w185" + props.img;
 
 	function viewMovie() {
@@ -10,13 +12,26 @@ function CardMovie(props) {
 		win.focus();
 	}
 
+	function hoverHanlder() {
+		setShowOverview(true);
+	}
+
+	function mouseLeaveHanlder() {
+		setShowOverview(false);
+	}
+
+	const movie = (
+		<React.Fragment>
+			<img src={IMG} alt="MovieImg"></img>
+			<h3>{props.title}</h3>
+		</React.Fragment>
+	);
+
+	const overview = <div id="Overview">{props.overview}</div>;
+
 	return (
-		<div className="CardMovie" onClick={viewMovie}>
-			<h1>{props.title}</h1>
-			<div id="ImgOverview">
-				<img src={IMG} alt="MovieImg"></img>
-				<p>{props.overview}</p>
-			</div>
+		<div className="CardMovie" onClick={viewMovie} onMouseOver={hoverHanlder} onMouseLeave={mouseLeaveHanlder}>
+			{showOverview ? overview : movie}
 		</div>
 	);
 }
