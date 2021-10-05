@@ -32,6 +32,8 @@ function CardMovie(props) {
 	return (
 		<div className="CardMovie" onClick={viewMovie} onMouseOver={hoverHanlder} onMouseLeave={mouseLeaveHanlder}>
 			{showOverview ? overview : movie}
+			<p id="Rating">{props.rating}/10</p>
+			{props.year === undefined ? null : <p id="Year">{props.year.slice(0, 4)}</p>}
 		</div>
 	);
 }

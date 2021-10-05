@@ -53,7 +53,7 @@ function App() {
 			<input type="text" onChange={handleChange} placeholder="Movie Name..." />
 			<main id="MoviesContainer">
 				{movies.map((movie) => {
-					return <CardMovie key={movie.id} id={movie.id} img={movie.poster_path} title={movie.title} overview={movie.overview} />;
+					return <CardMovie key={movie.id} id={movie.id} img={movie.poster_path} title={movie.title} overview={movie.overview} rating={movie.vote_average} year={movie.release_date} />;
 				})}
 			</main>
 		</div>
