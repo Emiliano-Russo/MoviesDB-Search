@@ -6,55 +6,57 @@ const axios = require("axios");
 const urlString = "https://api.themoviedb.org/3/search/movie?api_key=1b5adf76a72a13bad99b8fc0c68cb085&query="; //+ searchTerm;
 
 function App() {
-	let [movies, setMovies] = useState([{ id: "1", poster_src: "https://i.imgur.com/uVtO7J0.jpg", title: "The Avengers", overview: "Eyy si" }]);
+	const [movies, setMovies] = useState([]);
+	const [valueTyped, setValueTyped] = useState("a");
 
 	useEffect(() => {
-		searchMovie("A");
-	}, []);
+		setTimeout(() => {
+			searchMovie(valueTyped);
+		}, 500);
+		return () => {
+			clearTimeout();
+		};
+	}, [valueTyped]);
 
 	function searchMovie(searchTerm) {
+		if (searchTerm === "") searchTerm = "a";
 		const url = urlString + searchTerm;
 		console.log("url: " + url);
 		axios
 			.get(url)
 			.then((res) => {
-				console.log("todo joya pa:");
 				console.log(res);
 				setMovies(res.data.results);
 			})
 			.catch((error) => {
 				console.log("an error ocurred");
-			})
-			.then(function () {
-				console.log("¿...?");
+				console.log(error);
 			});
-	}
-
-	function handleChange(e) {
-		searchMovie(e.target.value);
 	}
 
 	return (
 		<div className="App">
 			<header>
-				<p></p>
-				<h1>MoviesDB Search</h1>
-				<p id="mark">
-					{" "}
-					<b>
-						<i> &lt;p&gt; </i>
-					</b>
-					Developed by Emiliano Russo{" "}
-					<b>
-						<i> &lt;/p&gt;</i>
-					</b>
-				</p>
+				<h1>MoviesDB</h1>
 			</header>
-			<input type="text" onChange={handleChange} placeholder="Movie Name..." />
+			<input
+				type="text"
+				onChange={(e) =>
+					setValueTyped((prev) => {
+						setMovies([]);
+						return e.target.value;
+					})
+				}
+				placeholder="Movie Name..."
+			/>
 			<main id="MoviesContainer">
-				{movies.map((movie) => {
-					return <CardMovie key={movie.id} id={movie.id} img={movie.poster_path} title={movie.title} overview={movie.overview} rating={movie.vote_average} year={movie.release_date} />;
-				})}
+				{movies.length !== 0 ? (
+					movies.map((movie) => {
+						return <CardMovie key={movie.id} id={movie.id} img={movie.poster_path} title={movie.title} overview={movie.overview} rating={movie.vote_average} year={movie.release_date} />;
+					})
+				) : (
+					<div className="loader"></div>
+				)}
 			</main>
 		</div>
 	);
